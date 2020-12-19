@@ -107,6 +107,7 @@ The following table lists configurable parameters, their descriptions, and their
 | backup.gcs | Google Cloud Storage config | `nil`
 | backup.azure | Azure Blob Storage config | `nil`
 | backup.s3 | Amazon S3 (or compatible) config | `nil`
+| backup.hdfs | HDFS config | `nil`
 | backup.schedule | Schedule to run jobs in cron format | `0 0 * * *` |
 | backup.startingDeadlineSeconds | Deadline in seconds for starting the job if it misses its scheduled time for any reason | `nil` |
 | backup.annotations | Annotations for backup cronjob | {} |

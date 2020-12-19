@@ -153,4 +153,28 @@ spec:
             resources:
               {{- toYaml .Values.backup.resources | nindent 14 }}
           {{- end }}
+          {{- if .Values.backup.hdfs }}
+          - name: hdfs-cli
+            image: davvdg/hdfs-client
+            command:
+              - /bin/sh
+            args:
+              - '-c'
+              - '-e'
+              - |
+                hadoop fs -fs hdfs://"$HDFS_PATH" -put "$SRC_URL" "$DST_URL"
+                rm -rf /backup/*
+            volumeMounts:
+              - name: backup
+                mountPath: /backup
+            env:
+              - name: HDFS_PATH
+                value: {{  .Values.backup.hdfs.path  }}
+              - name: SRC_URL
+                value: /backup
+              - name: DST_URL
+                value: {{ .Values.backup.hdfs.destination }}
+            resources:
+#              {{- toYaml .Values.backup.resources | nindent 14 }}
+          {{- end }}
 {{- end }}
