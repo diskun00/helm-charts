@@ -162,7 +162,8 @@ spec:
               - '-c'
               - '-e'
               - |
-                hadoop fs -fs hdfs://"$HDFS_PATH" -put "$SRC_URL" "$DST_URL"
+                hadoop fs -fs "$HDFS_PATH" -mkdir -p  "$DST_URL"
+                hadoop fs -fs "$HDFS_PATH" -put /backup/*  "$DST_URL"
                 rm -rf /backup/*
             volumeMounts:
               - name: backup
@@ -170,8 +171,6 @@ spec:
             env:
               - name: HDFS_PATH
                 value: {{  .Values.backup.hdfs.path  }}
-              - name: SRC_URL
-                value: /backup
               - name: DST_URL
                 value: {{ .Values.backup.hdfs.destination }}
             resources:
